@@ -12,14 +12,14 @@ swapon /dev/nvme0n1p3
 mount /dev/nvme0n1p2 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
-pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode iucode-tool archlinux-keyring sudo nano go python3-pip python3-venv xorg-server sddm xfce4 --noconfirm
+pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode iucode-tool archlinux-keyring sudo nano go xorg-server sddm xfce4 --noconfirm
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 arch-chroot /mnt hwclock --systohc
 arch-chroot /mnt echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen && echo "en_US ISO-8859-1" >> /mnt/etc/locale.gen
 arch-chroot /mnt locale-gen
 arch-chroot /mnt hwclock --systohc
-arch-chroot /mnt pacman -Syyu --needed nomacs git curl wget zsh fwupd packagekit-qt5 ntfs-3g dosfstools xfsprogs xfsdump grub efibootmgr networkmanager mtools pacman-contrib variety plank ccache haveged ufw bluez hplip cups go os-prober libreoffice-fresh thunderbird openssh dhcpcd acpi cpio ffmpeg ffmpegthumbnailers xf86-video-intel xarchiver galculator xdg-user-dirs-gtk --noconfirm
+arch-chroot /mnt pacman -Sy nomacs git curl wget zsh fwupd packagekit ntfs-3g dosfstools xfsprogs xfsdump grub efibootmgr networkmanager mtools pacman-contrib  lank ccache haveged ufw bluez hplip cups go os-prober libreoffice-fresh thunderbird openssh dhcpcd acpi cpio ffmpeg ffmpegthumbnailers xf86-video-intel xarchiver galculator xdg-user-dirs-gtk --noconfirm
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 export LANG="en_US.UTF-8"
 echo "archduke" > /mnt/etc/hostname
