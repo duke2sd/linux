@@ -1,7 +1,8 @@
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR="BackBox"
-GRUB_CMDLINE_LINUX_DEFAULT="GRUB_CMDLINE_LINUX_DEFAULT="fsck.mode=skip quiet loglevel=0 rd.systemd.show_status=false nowatchdog mitigations=off libahci.ignore_sss=1 resume=UUID="
+GRUB_DISTRIBUTOR="SysLinuxOS"
+GRUB_CMDLINE_LINUX_DEFAULT="fsck.mode=skip quiet loglevel=0 rd.systemd.show_status=false nowatchdog mitigations=off libahci.ignore_sss=1 resume=UUID=8144c150-9d43-49cf-82bb-467ee4365280"
 GRUB_CMDLINE_LINUX=""
 GRUB_DISABLE_OS_PROBER=false
-GRUB_THEME="/home/darre/grub/theme.txt"
+GRUB_THEME="/home/darren/grub/theme.txt"
+GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"
