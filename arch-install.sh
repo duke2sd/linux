@@ -3,6 +3,7 @@
 # passwd
 # passwd darren
 # EDITOR=nano visudo
+# https://manual.siduction.org/sys-admin-btrfs-snapper_en.html
 
 pacman -Syu archlinux-keyring pacman-contrib --noconfirm
 mkfs.vfat -F32 /dev/sda1
