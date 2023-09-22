@@ -12,14 +12,14 @@ mkfs.xfs /dev/sda3 -f
 mount /dev/sda3 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
-pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode iucode-tool archlinux-keyring sudo nano  --noconfirm
+pacstrap /mnt base base-devel linux linux-headers linux-firmware amd-ucode archlinux-keyring sudo nano  --noconfirm
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 arch-chroot /mnt hwclock --systohc
 arch-chroot /mnt echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen && echo "en_US ISO-8859-1" >> /mnt/etc/locale.gen
 arch-chroot /mnt locale-gen
 arch-chroot /mnt hwclock --systohc
-arch-chroot /mnt pacman -Sy --needed --noconfirm xorg sddm plasma kde-applications git curl wget zsh fwupd packagekit ntfs-3g dosfstools xfsprogs btrfs-progs snapper grub efibootmgr networkmanager mtools pacman-contrib plank ccache haveged ufw bluez hplip cups go os-prober libreoffice-fresh thunderbird openssh dhcpcd acpi cpio ffmpeg ffmpegthumbnailers xf86-video-intel kvantum-qt5 xdg-user-dirs-gtk
+arch-chroot /mnt pacman -Sy --needed --noconfirm xorg sddm plasma kde-applications git curl wget zsh fwupd packagekit ntfs-3g dosfstools firefox xfsprogs btrfs-progs snapper grub efibootmgr networkmanager mtools pacman-contrib plank ccache haveged ufw bluez bluez-utils alsa-utils spectacle krunner partitionmanager kcalc kwrite ark dolphin konsole packagekit-qt5 hplip cups go os-prober libreoffice-fresh thunderbird openssh dhcpcd acpi cpio ffmpeg ffmpegthumbnailers xf86-video-amdgpu  kvantum-qt5 fzf neofetch xdg-user-dirs-gtk qbittorrent 
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 arch-chroot /mnt export LANG="en_US.UTF-8"
 echo "archduke" > /mnt/etc/hostname
