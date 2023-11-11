@@ -24,21 +24,23 @@ CASE_SENSITIVE="true"
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
-plugins=(git sudo npm python pyenv dotenv z fd fzf autojump history colorize zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git sudo z fd fzf autojump history colorize zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 alias s="sudo"
-alias sn="shutdown now"
-alias rb="reboot"
-alias add="sudo nala install"
-alias del="sudo nala remove"
-alias update="sudo nala upgrade -y"
-alias clean="sudo nala autopurge -y"
-alias list="sudo nala list -i"
-alias find="sudo nala search"
+alias sn="sudo shutdown now"
+alias rb="sudo reboot"
+alias add="sudo pacman -S"
+alias del="sudo pacman -R"
+alias update="sudo pacman -Sy"
+alias upgrade="sudo pacman -Syyu"
+alias list="sudo pacman -Qe"
+alias search="sudo pacman -Q"
+alias yay="yay -S --noconfirm"
+alias update-grub="sudo mkinitcpio -P && sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
-neofetch
+fastfetch
 setopt nonomatch
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
