@@ -1,4 +1,0 @@
-deb [arch=amd64] http://qubuntu.org/quarkrp quark-22-04-cn main
-deb [arch=amd64] http://qubuntu.org/quarktde jammy basic
-deb http://qubuntu.org/quarkext jammy-vboxadds-cn main
-deb https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu/ jammy main
