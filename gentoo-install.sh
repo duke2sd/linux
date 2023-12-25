@@ -113,7 +113,7 @@ AUTOCLEAN="yes"
 EOF
 
 ## set profiles
-eselect profile set default/linux/amd64/17.1/no-multilib/systemd/merged-usr
+eselect profile set default/linux/amd64/23.0/desktop/kde
 
 ## update everything and cleanup
 emerge -DNju @world
