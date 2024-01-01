@@ -24,21 +24,22 @@ CASE_SENSITIVE="true"
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
-plugins=(git sudo z fd fzf autojump history colorize zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git sudo z fzf autojump command-not-found cp copypath copyfile history-substring-search zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 alias s="sudo"
-alias sn="sudo shutdown now"
-alias rb="sudo reboot"
-alias add="sudo pacman -S"
-alias del="sudo pacman -R"
-alias update="sudo pacman -Sy"
-alias upgrade="sudo pacman -Syyu"
+alias sn="shutdown now"
+alias rb="reboot"
+alias add="nix-env -iA"
+alias del="nix-env --uninstall"
+alias list-c="sudo nix-channel --list"
+alias list-u="sudo nix-channel --update"
+alias list-a="sudo nix-channel --add"
+alias list-r="sudo nix-channel --remove"
+alias update="sudo nixos-rebuild switch && nix-env -u '*' && home-manager switch"
 alias list="sudo pacman -Qe"
-alias search="sudo pacman -Q"
-alias yay="yay -S --noconfirm"
-alias update-grub="sudo mkinitcpio -P && sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 fastfetch
 setopt nonomatch
