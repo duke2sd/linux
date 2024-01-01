@@ -33,13 +33,17 @@ alias sn="shutdown now"
 alias rb="reboot"
 alias add="nix-env -iA"
 alias del="nix-env --uninstall"
-alias list-c="sudo nix-channel --list"
-alias list-u="sudo nix-channel --update"
-alias list-a="sudo nix-channel --add"
-alias list-r="sudo nix-channel --remove"
+alias channel-list="sudo nix-channel --list"
+alias channel-update="sudo nix-channel --update"
+alias channel-add="sudo nix-channel --add"
+alias channel-remove="sudo nix-channel --remove"
 alias update="sudo nixos-rebuild switch && nix-env -u '*' && home-manager switch"
-alias list="sudo pacman -Qe"
+alias list="nix-env --query"
+alias find="nix search nixpkgs"
+alias config="sudo nano /etc/nixos/configuration.nix"
+alias rebuild="sudo nixos-rebuild boot && reboot"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
 
 fastfetch
 setopt nonomatch
