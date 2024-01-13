@@ -24,7 +24,7 @@ CASE_SENSITIVE="true"
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
-plugins=(git sudo z fzf autojump command-not-found cp copypath copyfile history-substring-search zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git sudo z fzf autojump command-not-found cp copypath copyfile history-substring-search zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
