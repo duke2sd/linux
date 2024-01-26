@@ -87,30 +87,24 @@ ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 ## add cpu flags
 emerge app-portage/cpuid2cpuflags
-cpu_flags=$( cpuid2cpuflags | cut -d ' ' -f '2-' )
-
 ## append to my make.conf
-use_remove='-accessibility -altivec -apache2 -aqua -big-endian -bindist -boundschecking -bsf -canna -clamav -connman -coreaudio -custom-cflags -debug -dedicated -emacs -handbook -ibm -infiniband -iwmmxt -kde -kontact -libav -libedit -libressl -libsamplerate -mono -mule -neon -oci8 -oci8-instant-client -oracle -oss -pch -pcmcia -plasma -qmail-spp -qt4 -qt5 -static -syslog -sysvipc -tcpd -xemacs -yahoo -zsh-completion'
-use_add='symlink unicode vim-syntax'
-make_opts="-j$(( $( nproc ) + 1 ))"
-
-cat << EOF > /etc/portage/make.conf
-CFLAGS="-mtune=znver3 -O3 -pipe"
+use_remove="-accessibility -altivec -apache2 -aqua -big-endian -bindist -boundschecking -bsf -canna -clamav -connman -coreaudio -custom-cflags -debug -dedicated -emacs -handbook -ibm -infiniband -iwmmxt -kontact -libav -libedit -libressl -libsamplerate -mono -mule -neon -oci8 -oci8-instant-client -oracle -oss -pch -pcmcia -static -syslog -sysvipc -tcpd -xemacs -yahoo"
+use_add="symlink unicode"
+CFLAGS="-march=znver3 -mtune=znver3 -O3 -pipe"
 CXXFLAGS=\${CFLAGS}
 CHOST="x86_64-pc-linux-gnu"
-CPU_FLAGS_X86="${cpu_flags}"
+CPU_FLAGS_X86=""
 GRUB_PLATFORMS="efi-64"
-# enable this if you like living on the edge
-#ACCEPT_KEYWORDS="~amd64"
-MAKEOPTS="${make_opts}"
+ACCEPT_KEYWORDS="~amd64"
+MAKEOPTS="--jobs 13 --load-average 9"
 ADD="${use_add}"
 REMOVE="${use_remove}"
 USE="\$REMOVE \$ADD"
 # Portage Opts
 FEATURES="parallel-fetch parallel-install ebuild-locks"
-EMERGE_DEFAULT_OPTS="--with-bdeps=y"
+EMERGE_DEFAULT_OPTS="--getbinpkgs --binpkg-respect-use=y --with-bdeps=y"
 AUTOCLEAN="yes"
-EOF
+
 
 ## set profiles
 eselect profile set default/linux/amd64/23.0/desktop/kde
