@@ -27,11 +27,7 @@ tar -xapf stage3-amd64-desktop-openrc-20231217T170203Z.tar.xz
 rm -f stage3-amd64-desktop-openrc-20231217T170203Z.tar.xz
 
 ## mount proc, sys and dev
-mount --types proc /proc /mnt/gentoo/proc
-mount --rbind /sys /mnt/gentoo/sys
-mount --make-rslave /mnt/gentoo/sys
-mount --rbind /dev /mnt/gentoo/dev
-mount --make-rslave /mnt/gentoo/dev
+mount --types proc /proc /mnt/gentoo/proc && mount --rbind /sys /mnt/gentoo/sys && mount --make-rslave /mnt/gentoo/sys && mount --rbind /dev /mnt/gentoo/dev && mount --make-rslave /mnt/gentoo/dev
 
 ## activate swap
 swapon /dev/nvme0n1p3
