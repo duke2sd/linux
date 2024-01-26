@@ -84,12 +84,14 @@ ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 ## add cpu flags
 emerge app-portage/cpuid2cpuflags
 ## append to my make.conf
-use_remove="-accessibility -altivec -apache2 -aqua -big-endian -bindist -boundschecking -bsf -canna -clamav -connman -coreaudio -custom-cflags -debug -dedicated -emacs -handbook -ibm -infiniband -iwmmxt -kontact -libav -libedit -libressl -libsamplerate -mono -mule -neon -oci8 -oci8-instant-client -oracle -oss -pch -pcmcia -static -syslog -sysvipc -tcpd -xemacs -yahoo"
+GNU nano 7.2                            make.conf
+GNU nano 7.2                                                 make.conf
+use_remove="-accessibility -altivec -apache2 -aqua -big-endian -bindist -boundschecking -bsf -canna -clamav -connman -coreaudio -c>
 use_add="symlink unicode"
 CFLAGS="-march=znver3 -mtune=znver3 -O3 -pipe"
-CXXFLAGS=\${CFLAGS}
+CXXFLAGS=${CFLAGS}
 CHOST="x86_64-pc-linux-gnu"
-CPU_FLAGS_X86=""
+CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3"
 GRUB_PLATFORMS="efi-64"
 ACCEPT_KEYWORDS="~amd64"
 MAKEOPTS="--jobs 13 --load-average 9"
@@ -98,7 +100,7 @@ REMOVE="${use_remove}"
 USE="\$REMOVE \$ADD"
 # Portage Opts
 FEATURES="parallel-fetch parallel-install ebuild-locks"
-EMERGE_DEFAULT_OPTS="--getbinpkgs --binpkg-respect-use=y --with-bdeps=y"
+EMERGE_DEFAULT_OPTS="--getbinpkg --binpkg-respect-use=y --with-bdeps=y"
 AUTOCLEAN="yes"
 
 
