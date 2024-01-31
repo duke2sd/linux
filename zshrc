@@ -44,6 +44,17 @@ alias config="sudo nano /etc/nixos/configuration.nix"
 alias rebuild="sudo nixos-rebuild boot && reboot"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
+alias s="sudo"
+alias sn="sudo shutdown now"
+alias rb="sudo reboot"
+alias add="sudo pacman -S"
+alias del="sudo pacman -R"
+alias upgrade="sudo pacman -Syyu"
+alias list="sudo pacman -Qe"
+alias find="sudo pacman -Q"
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias y="yay -S --noconfirm"
+
 
 fastfetch
 setopt nonomatch
