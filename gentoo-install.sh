@@ -96,7 +96,7 @@ make_opts="-j$(( $( nproc ) + 1 ))"
 
 cat << EOF > /etc/portage/make.conf
 CFLAGS="-mtune=native -O2 -pipe"
-CXXFLAGS=\${CFLAGS}
+CXXFLAGS="${CFLAGS}"
 CHOST="x86_64-pc-linux-gnu"
 CPU_FLAGS_X86="${cpu_flags}"
 GRUB_PLATFORMS="efi-64"
