@@ -20,7 +20,7 @@ mount -o defaults,relatime /dev/vda2 /mnt/gentoo/boot
 mount -o defaults,noatime /dev/vda1 /mnt/gentoo/boot/efi
 
 ## get gentoo stage3
-curl -LO https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/20211121T170545Z/stage3-amd64-nomultilib-systemd-20211121T170545Z.tar.xz
+wget https://distfiles.gentoo.org/releases/amd64/autobuilds/20240128T165521Z/stage3-amd64-desktop-openrc-20240128T165521Z.tar.xz
 
 ## uncompress
 tar -xapf stage3-amd64-nomultilib-systemd-20211121T170545Z.tar.xz
