@@ -5,6 +5,10 @@
 # EDITOR=nano visudo
 # https://manual.siduction.org/sys-admin-btrfs-snapper_en.html
 
+yay -S --noconfirm  auto-cpufreq  update-grub plasma6-applets-thermal-monitor-git  czkawka-gui-bin zenpower3-dkms  nvm mkinitcpio-firmware  linux-ck  linux-ck-headers linux-firmware amd-ucode bibata-cursor-theme-bin  numix-circle-icon-theme-git  pyenv-virtualenv  7-zip  hplip-plugin  etcher-bin compiz xorgxrdp-glamor   vulkan-amdgpu-pro  linux-amd-znver3  linux-amd-znver3-headers zenergy-dkms-git  amdctl-git  amdgpu_top-bin  amdmond-bin 
+&& 
+sudo pacman -S --noconfirm fwupd packagekit ntfs-3g dosfstools  xfsprogs btrfs-progs snapper grub efibootmgr xdg-user-dirs-gtk  networkmanager mtools pacman-contrib plank ccache haveged ufw bluez bluez-utils alsa-utils spectacle krunner partitionmanager kcalc kwrite ark dolphin konsole packagekit-qt5 hplip cups go os-prober libreoffice-fresh thunderbird openssh dhcpcd acpi cpio ffmpeg ffmpegthumbnailers xf86-video-amdgpu 
+
 pacman -Syu archlinux-keyring pacman-contrib --noconfirm
 mkfs.vfat -F32 /dev/sda1
 mkswap /dev/sda2
