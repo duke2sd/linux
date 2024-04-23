@@ -1,98 +1,9 @@
-#!/usr/bin/env bash
-# This is a recipe; not a script. You should try to run it chunk by chunck.
-# The shebang is only for syntax highlighting
+sudo swapon /dev/nvme0n1p3 && sudo mount --types proc /proc /mnt/gentoo/proc && sudo mount --rbind /sys /mnt/gentoo/sys && sudo mount --make-rslave /mnt/gentoo/sys && sudo mount --rbind /dev /mnt/gentoo/dev && sudo mount --make-rslave /mnt/gentoo/dev
 
-# Chroot
-## Please, run this right after running script 00
-mount -o defaults,relatime,compress=lzo,autodefrag,subvol=root /dev/vda4 /mnt/gentoo
-
-## create dirs for mounts
-cd /mnt/gentoo
-mkdir srv home root var boot
-
-## mount
-mount -o defaults,relatime,compress=lzo,autodefrag,subvol=home /dev/vda4 /mnt/gentoo/home
-mount -o defaults,relatime,compress=lzo,autodefrag,subvol=srv /dev/vda4 /mnt/gentoo/srv
-mount -o defaults,relatime,compress=lzo,autodefrag,subvol=var /dev/vda4 /mnt/gentoo/var
-mount -o defaults,relatime /dev/vda2 /mnt/gentoo/boot
-
-### efi partition
-mount -o defaults,noatime /dev/vda1 /mnt/gentoo/boot/efi
-
-## get gentoo stage3
-wget https://distfiles.gentoo.org/releases/amd64/autobuilds/20240128T165521Z/stage3-amd64-desktop-openrc-20240128T165521Z.tar.xz
-
-## uncompress
-tar -xapf stage3-amd64-nomultilib-systemd-20211121T170545Z.tar.xz
-rm -f $_
-
-## mount proc, sys and dev
-mount --types proc /proc /mnt/gentoo/proc
-mount --rbind /sys /mnt/gentoo/sys
-mount --make-rslave /mnt/gentoo/sys
-mount --rbind /dev /mnt/gentoo/dev
-mount --make-rslave /mnt/gentoo/dev
-
-## activate swap
-swapon /dev/vda3
-
-## get dns
-cp -u /etc/resolv.conf /mnt/gentoo/etc/
-
-## chroot
-env -i HOME=/root TERM=$TERM chroot . bash -l
-
-## environment
-env-update
-source /etc/profile
-export PS1="(chroot) $PS1"
-
-# emerge
-## sync repo first
-emaint -A sync
-
-## update portage
-emerge --oneshot portage
-
-# portage (git)
-# ref: https://wiki.gentoo.org/wiki/Portage_with_Git
-
-## install dependencies for emerge with git
-emerge -Dju app-eselect/eselect-repository dev-vcs/git
-
-## setup portage to use git instead of rsync
-eselect repository remove gentoo
-eselect repository add gentoo git https://github.com/gentoo-mirror/gentoo.git
-rm -r /var/db/repos/gentoo
-
-## sync
-emaint sync -r gentoo
-
-# Setup
-## fstab
-cat << 'EOF' > /etc/fstab
-# <fs>      <mountpoint>    <type>  <opts>                                              <dump/pass>
-shm         /dev/shm        tmpfs   nodev,nosuid,noexec                                 0 0
-/dev/vda4   /               btrfs   rw,relatime,compress=zstd:1,autodefrag,subvol=root   0 0
-/dev/vda4   /home           btrfs   rw,relatime,compress=zstd:1,autodefrag,subvol=home   0 0
-/dev/vda4   /srv            btrfs   rw,relatime,compress=zstd:1,autodefrag,subvol=srv    0 0
-/dev/vda4   /var            btrfs   rw,relatime,compress=zstd:1,autodefrag,subvol=var    0 0
-/dev/vda3   none            swap    sw                                                  0 0
-/dev/vda2   /boot           btrfs   rw,relatime                                          1 2
-/dev/vda1   /boot/efi       vfat    umask=0077,shortname=winnt                          0 2
-EOF
-
-## local time in MX
-ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
-
-## add cpu flags
-emerge app-portage/cpuid2cpuflags
-cpu_flags=$( cpuid2cpuflags | cut -d ' ' -f '2-' )
-
-## append to my make.conf
-use_remove='-accessibility -altivec -apache2 -aqua -big-endian -bindist -boundschecking -bsf -canna -clamav -connman -coreaudio -custom-cflags -debug -dedicated -emacs -handbook -ibm -infiniband -iwmmxt -kde -kontact -libav -libedit -libressl -libsamplerate -mono -mule -neon -oci8 -oci8-instant-client -oracle -oss -pch -pcmcia -plasma -qmail-spp -qt4 -qt5 -static -syslog -sysvipc -tcpd -xemacs -yahoo -zsh-completion'
-use_add='symlink unicode vim-syntax'
-make_opts="-j$(( $( nproc ) + 1 ))"
+sudo cp -u /etc/resolv.conf /mnt/gentoo/etc/ && sudo chroot /mnt/gentoo
+env-update && source /etc/profile && export PS1="(chroot) $PS1"
+emaint sync -A && emerge --oneshot portage
+ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime && sudo emerge app-portage/cpuid2cpuflags && sudo cpuid2cpuflags
 
 cat << EOF > /etc/portage/make.conf
 CFLAGS="-march=znver3 -mtune=znver3 -O3 -pipe"
@@ -110,12 +21,7 @@ VIDEO_CARDS="amdgpu"
 AUTOCLEAN="yes"
 EOF
 
-## set profiles
-eselect profile set default/linux/amd64/17.1/no-multilib/systemd/merged-usr
-
-## update everything and cleanup
-emerge -DNju @world
-emerge -c
+eselect profile list && sudo eselect repository list && eselect repository enable gentoobr && eselect repository enable elementary && emaint sync -A && emerge -DNju @world && emerge -c
 
 ## configure os-prober to mount grub
 cat << 'EOF' > /etc/portage/package.use/os-prober
