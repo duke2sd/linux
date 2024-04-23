@@ -95,20 +95,18 @@ use_add='symlink unicode vim-syntax'
 make_opts="-j$(( $( nproc ) + 1 ))"
 
 cat << EOF > /etc/portage/make.conf
-CFLAGS="-mtune=native -O2 -pipe"
+CFLAGS="-march=znver3 -mtune=znver3 -O3 -pipe"
 CXXFLAGS="${CFLAGS}"
 CHOST="x86_64-pc-linux-gnu"
-CPU_FLAGS_X86="${cpu_flags}"
+CPU_FLAGS_X86="aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 vpclmulqdq"
 GRUB_PLATFORMS="efi-64"
-# enable this if you like living on the edge
-#ACCEPT_KEYWORDS="~amd64"
-MAKEOPTS="${make_opts}"
-ADD="${use_add}"
-REMOVE="${use_remove}"
-USE="\$REMOVE \$ADD"
-# Portage Opts
-FEATURES="parallel-fetch parallel-install ebuild-locks"
-EMERGE_DEFAULT_OPTS="--with-bdeps=y"
+ACCEPT_KEYWORDS="~amd64"
+ACCEPT_LICENSE="*"
+MAKEOPTS="-j13 -l9"
+FEATURES="ccache getbinpkg buildpkg parallel-fetch parallel-install ebuild-locks"
+EMERGE_DEFAULT_OPTS="--keep-going --binpkg-respect-use=y --with-bdeps=y --backtrack=100"
+GENTOO_MIRRORS="https://mirror.leaseweb.com/gentoo/ http://gentoo-mirror.flux.utah.edu/"
+VIDEO_CARDS="amdgpu"
 AUTOCLEAN="yes"
 EOF
 
